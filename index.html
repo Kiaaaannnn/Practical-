@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient background glow */
     body::before {
       content: '';
       position: fixed;
@@ -65,7 +64,6 @@
       max-width: 420px;
     }
 
-    /* Logo / Header */
     .portal-header {
       text-align: center;
       margin-bottom: 32px;
@@ -100,7 +98,6 @@
       color: var(--muted);
     }
 
-    /* Card */
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -110,7 +107,6 @@
       animation: fadeUp 0.6s ease both 0.1s;
     }
 
-    /* Tabs */
     .tabs {
       display: flex;
       background: var(--input-bg);
@@ -138,14 +134,10 @@
       box-shadow: 0 4px 16px rgba(124,106,247,0.35);
     }
 
-    /* Panels */
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* Form elements */
-    .field {
-      margin-bottom: 16px;
-    }
+    .field { margin-bottom: 16px; }
     label {
       display: block;
       font-size: 12px;
@@ -175,7 +167,6 @@
     }
     input::placeholder { color: #3a3a50; }
 
-    /* Buttons */
     .btn {
       width: 100%;
       padding: 13px;
@@ -205,14 +196,7 @@
       cursor: not-allowed;
       box-shadow: none;
     }
-    .btn-secondary {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover { border-color: var(--accent); background: rgba(124,106,247,0.07); }
 
-    /* Message box */
     .message-box {
       margin-top: 16px;
       padding: 12px 14px;
@@ -224,15 +208,12 @@
       gap: 8px;
     }
     .message-box.show { display: flex; }
-    .message-box.success { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: var(--success); }
+    .message-box.success { background: rgba(74,222,128,0.1);  border: 1px solid rgba(74,222,128,0.25);  color: var(--success); }
     .message-box.error   { background: rgba(247,106,138,0.1); border: 1px solid rgba(247,106,138,0.25); color: var(--accent2); }
     .message-box.warning { background: rgba(251,146,60,0.1);  border: 1px solid rgba(251,146,60,0.25);  color: var(--warning); }
     .message-box.info    { background: rgba(124,106,247,0.1); border: 1px solid rgba(124,106,247,0.25); color: var(--accent); }
 
-    /* Attempts bar */
-    .attempts-bar {
-      margin-top: 14px;
-    }
+    .attempts-bar { margin-top: 14px; }
     .attempts-label {
       font-size: 11px;
       color: var(--muted);
@@ -254,7 +235,6 @@
       width: 0%;
     }
 
-    /* Users list */
     .users-list {
       margin-top: 20px;
       border-top: 1px solid var(--border);
@@ -281,11 +261,8 @@
       font-size: 13px;
       animation: fadeUp 0.3s ease both;
     }
-    .user-chip .uname {
-      font-weight: 600;
-      color: var(--text);
-    }
-    .user-chip .role-tag {
+    .user-chip .uname { font-weight: 600; color: var(--text); }
+    .role-tag {
       font-size: 10px;
       padding: 2px 8px;
       border-radius: 99px;
@@ -309,25 +286,6 @@
     }
     .delete-btn:hover { color: var(--accent2); }
 
-    /* Divider */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 20px 0 16px;
-      color: var(--muted);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* Strength indicator */
     .strength-meter { margin-top: 6px; display: flex; gap: 4px; }
     .strength-seg {
       height: 3px;
@@ -340,7 +298,6 @@
     .strength-seg.medium { background: var(--warning); }
     .strength-seg.strong { background: var(--success); }
 
-    /* Footer */
     .footer {
       text-align: center;
       margin-top: 20px;
@@ -350,7 +307,6 @@
     }
     .footer span { color: var(--accent); }
 
-    /* Animations */
     @keyframes fadeDown {
       from { opacity: 0; transform: translateY(-16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -359,8 +315,6 @@
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    /* Shake animation on error */
     @keyframes shake {
       0%,100% { transform: translateX(0); }
       20%     { transform: translateX(-8px); }
@@ -467,10 +421,10 @@
 
   // ── Tab switching ─────────────────────────────────────
   function switchTab(tab) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
     document.getElementById('panel-' + tab).classList.add('active');
-    var idx = ['login','register','users'].indexOf(tab);
+    var idx = ['login', 'register', 'users'].indexOf(tab);
     document.querySelectorAll('.tab-btn')[idx].classList.add('active');
     if (tab === 'users') renderUsers();
   }
@@ -480,6 +434,14 @@
     var el = document.getElementById(id);
     el.className = 'message-box show ' + type;
     el.innerHTML = '<span>' + icon + '</span><span>' + text + '</span>';
+  }
+
+  // ── Shake animation ───────────────────────────────────
+  function shake() {
+    var card = document.getElementById('mainCard');
+    card.classList.remove('shake');
+    void card.offsetWidth; // force reflow
+    card.classList.add('shake');
   }
 
   // ── Login ─────────────────────────────────────────────
@@ -522,13 +484,6 @@
     }
   }
 
-  function shake() {
-    var card = document.getElementById('mainCard');
-    card.classList.remove('shake');
-    void card.offsetWidth;
-    card.classList.add('shake');
-  }
-
   // ── Register ──────────────────────────────────────────
   function doRegister() {
     var u = document.getElementById('reg-user').value.trim();
@@ -566,23 +521,27 @@
     setTimeout(function() { switchTab('users'); }, 1200);
   }
 
-  // ── Password strength ───────────────────────────────  function checkStrength() {
+  // ── Password strength ─────────────────────────────────
+  function checkStrength() {
     var p = document.getElementById('reg-pass').value;
     var score = 0;
-    if (p.length >= 4)  score++;
-    if (p.length >= 8)  score++;
+    if (p.length >= 4) score++;
+    if (p.length >= 8) score++;
     if (/[A-Z]/.test(p) || /\d/.test(p)) score++;
     if (/[!@#$%^&*]/.test(p)) score++;
-    var segs = ['s1','s2','s3','s4'];
-    var cls  = ['','weak','medium','medium','strong'];
+
+    var segs = ['s1', 's2', 's3', 's4'];
     segs.forEach(function(id, i) {
       var el = document.getElementById(id);
       el.className = 'strength-seg';
-      if (i < score) el.classList.add(score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong');
+      if (i < score) {
+        el.classList.add(score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong');
+      }
     });
   }
+
   function resetStrength() {
-    ['s1','s2','s3','s4'].forEach(function(id) {
+    ['s1', 's2', 's3', 's4'].forEach(function(id) {
       document.getElementById(id).className = 'strength-seg';
     });
   }
@@ -591,18 +550,23 @@
   function renderUsers() {
     var list = document.getElementById('usersList');
     list.innerHTML = '';
-    users.forEach(function(u, i) {
-      var isAdmin = u.username.toLowerCase() === 'admin' || i === 0;
-      list.innerHTML +=
-        '<div class="user-chip">' +
-          '<span class="uname">👤 ' + u.username + '</span>' +
-          '<span class="role-tag ' + (isAdmin ? 'role-admin' : 'role-user') + '">' + (isAdmin ? 'Admin' : 'User') + '</span>' +
-          '<button class="delete-btn" onclick="deleteUser(' + i + ')" title="Remove">✕</button>' +
-        '</div>';
-    });
     if (users.length === 0) {
       list.innerHTML = '<div style="color:var(--muted);font-size:13px;text-align:center;padding:16px 0;">No users registered yet.</div>';
+      return;
     }
+    users.forEach(function(u, i) {
+      var isAdmin = u.username.toLowerCase() === 'admin' || i === 0;
+      var chip = document.createElement('div');
+      chip.className = 'user-chip';
+      chip.innerHTML =
+        '<span class="uname">👤 ' + u.username + '</span>' +
+        '<span class="role-tag ' + (isAdmin ? 'role-admin' : 'role-user') + '">' + (isAdmin ? 'Admin' : 'User') + '</span>' +
+        '<button class="delete-btn" title="Remove">✕</button>';
+      chip.querySelector('.delete-btn').addEventListener('click', function() {
+        deleteUser(i);
+      });
+      list.appendChild(chip);
+    });
   }
 
   function deleteUser(i) {
@@ -621,4 +585,5 @@
   });
 </script>
 </body>
-    </html>
+</html>
+
