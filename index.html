@@ -696,4 +696,496 @@
           <label>Password</label>
           <input type="password" id="login-pass" placeholder="Enter your password">
         </div>
-        <button class="btn btn-primary"
+        <button class="btn btn-primary"id="loginBtn" onclick="doLogin()">Sign In →</button>
+
+        <div class="attempts-bar" id="attemptsBar" style="display:none">
+          <div class="attempts-label">
+            <span>Failed attempts</span>
+            <span id="attemptsCount">0 / 3</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+        </div>
+        <div class="message-box" id="loginMsg"></div>
+      </div>
+
+      <!-- REGISTER PANEL -->
+      <div class="panel" id="panel-register">
+        <div class="field">
+          <label>New Username</label>
+          <input type="text" id="reg-user" placeholder="Choose a username" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="reg-pass" placeholder="Choose a password" oninput="checkStrength()">
+          <div class="strength-meter">
+            <div class="strength-seg" id="s1"></div>
+            <div class="strength-seg" id="s2"></div>
+            <div class="strength-seg" id="s3"></div>
+            <div class="strength-seg" id="s4"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Confirm Password</label>
+          <input type="password" id="reg-pass2" placeholder="Repeat password">
+        </div>
+        <div class="field">
+          <label>Role</label>
+          <select id="reg-role" style="width:100%;padding:12px 14px;background:var(--input-bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;">
+            <option value="user">Student</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="doRegister()">Create Account →</button>
+        <div class="message-box" id="regMsg"></div>
+      </div>
+
+      <!-- USERS PANEL -->
+      <div class="panel" id="panel-users">
+        <div class="users-list">
+          <h3>Registered Users</h3>
+          <div id="usersList"></div>
+        </div>
+        <div class="message-box" id="usersMsg"></div>
+      </div>
+    </div>
+
+    <div class="login-footer">
+      Secured portal · <span>CIT 238</span> · WVSU Janiuay Campus
+    </div>
+  </div>
+</div>
+
+<!-- ════ DASHBOARD SCREEN ════ -->
+<div id="dashScreen">
+  <nav class="dash-nav">
+    <div class="nav-brand">
+      <div class="nav-logo">🎓</div>
+      <div class="nav-title">
+        EduPortal
+        <span>CIT 238</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-user-pill">
+        <div class="nav-avatar" id="navAvatar">?</div>
+        <span class="nav-username" id="navUsername">Student</span>
+      </div>
+      <button class="logout-btn" onclick="showLogoutConfirm()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Log Out
+      </button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2 id="welcomeHeading">Welcome back! 👋</h2>
+        <p id="welcomeSub">Here's your academic overview for Semester 2, AY 2025–2026.</p>
+      </div>
+      <div class="welcome-badge">
+        <div class="dot-live"></div>
+        Session Active
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon purple">📚</div>
+        <div class="stat-value">6</div>
+        <div class="stat-label">Enrolled Subjects</div>
+        <div class="stat-delta up">↑ Same as last sem</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">✅</div>
+        <div class="stat-value">89%</div>
+        <div class="stat-label">Attendance Rate</div>
+        <div class="stat-delta up">↑ +4% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon pink">📝</div>
+        <div class="stat-value">3</div>
+        <div class="stat-label">Pending Outputs</div>
+        <div class="stat-delta down">↓ Due this week</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">⭐</div>
+        <div class="stat-value">1.75</div>
+        <div class="stat-label">Current GWA</div>
+        <div class="stat-delta up">↑ Improved by 0.25</div>
+      </div>
+    </div>
+
+    <!-- Two-col panels -->
+    <div class="dash-cols">
+      <!-- Activity Feed -->
+      <div class="dash-panel">
+        <div class="dash-panel-header">
+          <span class="dash-panel-title">Recent Activity</span>
+          <span style="font-size:11px;color:var(--muted);">Today</span>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--accent)"></div>
+          <div>
+            <div class="activity-text">Quiz #3 submitted in <strong>CIT 238</strong></div>
+            <div class="activity-time">2 hours ago</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--success)"></div>
+          <div>
+            <div class="activity-text">Grade released for <strong>CC 105 Midterms</strong></div>
+            <div class="activity-time">Yesterday, 4:30 PM</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--warning)"></div>
+          <div>
+            <div class="activity-text">New announcement in <strong>Math 112</strong></div>
+            <div class="activity-time">Yesterday, 10:00 AM</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--accent2)"></div>
+          <div>
+            <div class="activity-text">Lab report deadline extended — <strong>CS 201</strong></div>
+            <div class="activity-time">2 days ago</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-dot" style="background:var(--accent)"></div>
+          <div>
+            <div class="activity-text">Successfully <strong>logged in</strong> to portal</div>
+            <div class="activity-time" id="loginTimeStamp">Just now</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subjects -->
+      <div class="dash-panel">
+        <div class="dash-panel-header">
+          <span class="dash-panel-title">Subjects</span>
+          <span style="font-size:11px;color:var(--muted);">Sem 2, 2025–26</span>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#7c6af7"></div>
+            <div>
+              <div class="subject-name">Mobile App Dev</div>
+              <div class="subject-code">CIT 238</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#7c6af7">1.25</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#7c6af7;width:92%"></div></div>
+          </div>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#4ade80"></div>
+            <div>
+              <div class="subject-name">Computer Networks</div>
+              <div class="subject-code">CC 105</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#4ade80">1.50</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#4ade80;width:86%"></div></div>
+          </div>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#f76a8a"></div>
+            <div>
+              <div class="subject-name">Data Structures</div>
+              <div class="subject-code">CS 201</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#f76a8a">2.00</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#f76a8a;width:75%"></div></div>
+          </div>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#fb923c"></div>
+            <div>
+              <div class="subject-name">Calculus II</div>
+              <div class="subject-code">Math 112</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#fb923c">1.75</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#fb923c;width:80%"></div></div>
+          </div>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#38bdf8"></div>
+            <div>
+              <div class="subject-name">Web Systems</div>
+              <div class="subject-code">IT 215</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#38bdf8">1.50</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#38bdf8;width:86%"></div></div>
+          </div>
+        </div>
+        <div class="subject-row">
+          <div class="subject-info">
+            <div class="subject-dot" style="background:#a78bfa"></div>
+            <div>
+              <div class="subject-name">Ethics in IT</div>
+              <div class="subject-code">GE 108</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="subject-grade" style="color:#a78bfa">1.25</div>
+            <div class="mini-bar-track"><div class="mini-bar-fill" style="background:#a78bfa;width:92%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ LOGOUT CONFIRM MODAL ════ -->
+<div id="logoutOverlay">
+  <div class="logout-modal">
+    <div class="icon">👋</div>
+    <h3>Leaving already?</h3>
+    <p>Your session will end and you'll need to sign in again to access your dashboard.</p>
+    <div class="logout-modal-btns">
+      <button class="btn-cancel" onclick="hideLogoutConfirm()">Stay</button>
+      <button class="btn-confirm-logout" onclick="doLogout()">Log Out</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Data store ──
+  let users = [
+    { username: 'admin', password: 'admin123', role: 'admin' },
+    { username: 'student1', password: 'pass1234', role: 'user' }
+  ];
+  let loginAttempts = 0;
+  const MAX_ATTEMPTS = 3;
+  let currentUser = null;
+
+  // ── On load: go straight to dashboard as "student1" ──
+  window.addEventListener('DOMContentLoaded', () => {
+    autoLogin('student1');
+  });
+
+  function autoLogin(username) {
+    const user = users.find(u => u.username === username);
+    if (user) {
+      currentUser = user;
+      showDashboard(user);
+    } else {
+      showLoginScreen();
+    }
+  }
+
+  function showLoginScreen() {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('dashScreen').style.display = 'none';
+    renderUsersList();
+  }
+
+  function showDashboard(user) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashScreen').style.display = 'block';
+
+    const initials = user.username.slice(0, 2).toUpperCase();
+    document.getElementById('navAvatar').textContent = initials;
+    document.getElementById('navUsername').textContent = user.username;
+    document.getElementById('welcomeHeading').textContent =
+      `Welcome back, ${user.username}! 👋`;
+    document.getElementById('welcomeSub').textContent =
+      user.role === 'admin'
+        ? 'Admin view — Semester 2, AY 2025–2026.'
+        : 'Here\'s your academic overview for Semester 2, AY 2025–2026.';
+    document.getElementById('loginTimeStamp').textContent = 'Just now';
+  }
+
+  // ── Login logic ──
+  function doLogin() {
+    const uInput = document.getElementById('login-user').value.trim();
+    const pInput = document.getElementById('login-pass').value;
+    const msg    = document.getElementById('loginMsg');
+
+    if (!uInput || !pInput) {
+      showMsg(msg, 'warning', '⚠️ Please fill in all fields.');
+      return;
+    }
+
+    const user = users.find(u => u.username === uInput && u.password === pInput);
+
+    if (user) {
+      loginAttempts = 0;
+      showMsg(msg, 'success', '✅ Login successful! Redirecting…');
+      document.getElementById('loginBtn').disabled = true;
+      setTimeout(() => {
+        currentUser = user;
+        showDashboard(user);
+        // reset form
+        document.getElementById('login-user').value = '';
+        document.getElementById('login-pass').value = '';
+        document.getElementById('loginBtn').disabled = false;
+        msg.className = 'message-box';
+        document.getElementById('attemptsBar').style.display = 'none';
+        loginAttempts = 0;
+        updateAttemptsBar();
+      }, 900);
+    } else {
+      loginAttempts++;
+      document.getElementById('attemptsBar').style.display = 'block';
+      updateAttemptsBar();
+      document.getElementById('mainCard').classList.remove('shake');
+      void document.getElementById('mainCard').offsetWidth;
+      document.getElementById('mainCard').classList.add('shake');
+
+      if (loginAttempts >= MAX_ATTEMPTS) {
+        document.getElementById('loginBtn').disabled = true;
+        showMsg(msg, 'error', '🔒 Too many attempts. Please wait 30 seconds.');
+        setTimeout(() => {
+          loginAttempts = 0;
+          updateAttemptsBar();
+          document.getElementById('loginBtn').disabled = false;
+          document.getElementById('attemptsBar').style.display = 'none';
+          showMsg(msg, 'info', '🔓 You may try again now.');
+        }, 30000);
+      } else {
+        showMsg(msg, 'error', `❌ Invalid username or password. (${loginAttempts}/${MAX_ATTEMPTS})`);
+      }
+    }
+  }
+
+  function updateAttemptsBar() {
+    const pct = (loginAttempts / MAX_ATTEMPTS) * 100;
+    document.getElementById('barFill').style.width = pct + '%';
+    document.getElementById('attemptsCount').textContent = `${loginAttempts} / ${MAX_ATTEMPTS}`;
+  }
+  // ── Register logic ──
+  function doRegister() {
+    const u  = document.getElementById('reg-user').value.trim();
+    const p  = document.getElementById('reg-pass').value;
+    const p2 = document.getElementById('reg-pass2').value;
+    const r  = document.getElementById('reg-role').value;
+    const msg = document.getElementById('regMsg');
+
+    if (!u || !p || !p2) { showMsg(msg, 'warning', '⚠️ All fields are required.'); return; }
+    if (p !== p2)          { showMsg(msg, 'error', '❌ Passwords do not match.'); return; }
+    if (p.length < 6)      { showMsg(msg, 'warning', '⚠️ Password must be at least 6 characters.'); return; }
+    if (users.find(x => x.username === u)) { showMsg(msg, 'error', '❌ Username already exists.'); return; }
+
+    users.push({ username: u, password: p, role: r });
+    showMsg(msg, 'success', `✅ Account "${u}" created successfully!`);
+    document.getElementById('reg-user').value = '';
+    document.getElementById('reg-pass').value = '';
+    document.getElementById('reg-pass2').value = '';
+    resetStrength();
+    renderUsersList();
+  }
+
+  // ── Users panel ──
+  function renderUsersList() {
+    const el = document.getElementById('usersList');
+    el.innerHTML = '';
+    users.forEach((u, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'user-chip';
+      chip.innerHTML = `
+        <span class="uname">${u.username}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="role-tag ${u.role === 'admin' ? 'role-admin' : 'role-user'}">${u.role}</span>
+          ${i > 0 ? `<button class="delete-btn" onclick="deleteUser(${i})" title="Delete">✕</button>` : ''}
+        </div>
+      `;
+      el.appendChild(chip);
+    });
+  }
+
+  function deleteUser(i) {
+    const msg = document.getElementById('usersMsg');
+    showMsg(msg, 'info', `🗑 User "${users[i].username}" removed.`);
+    users.splice(i, 1);
+    renderUsersList();
+  }
+
+  // ── Strength meter ──
+  function checkStrength() {
+    const p = document.getElementById('reg-pass').value;
+    const segs = [document.getElementById('s1'), document.getElementById('s2'),
+                  document.getElementById('s3'), document.getElementById('s4')];
+    segs.forEach(s => s.className = 'strength-seg');
+    let score = 0;
+    if (p.length >= 6) score++;
+    if (p.length >= 10) score++;
+    if (/[A-Z]/.test(p) && /[0-9]/.test(p)) score++;
+    if (/[^A-Za-z0-9]/.test(p)) score++;
+    const cls = score <= 1 ? 'weak' : score <= 2 ? 'medium' : 'strong';
+    for (let j = 0; j < score; j++) segs[j].classList.add(cls);
+  }
+
+  function resetStrength() {
+    ['s1','s2','s3','s4'].forEach(id => document.getElementById(id).className = 'strength-seg');
+  }
+
+  // ── Tabs ──
+  function switchTab(name) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', ['login','register','users'][i] === name);
+    });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    if (name === 'users') renderUsersList();
+  }
+
+  // ── Logout ──
+  function showLogoutConfirm() {
+    document.getElementById('logoutOverlay').classList.add('show');
+  }
+
+  function hideLogoutConfirm() {
+    document.getElementById('logoutOverlay').classList.remove('show');
+  }
+
+  function doLogout() {
+    hideLogoutConfirm();
+    currentUser = null;
+    // brief fade
+    document.getElementById('dashScreen').style.opacity = '0';
+    document.getElementById('dashScreen').style.transition = 'opacity 0.3s ease';
+    setTimeout(() => {
+      document.getElementById('dashScreen').style.opacity = '';
+      document.getElementById('dashScreen').style.transition = '';
+      showLoginScreen();
+      switchTab('login');
+    }, 300);
+  }
+
+  // ── Helpers ──
+  function showMsg(el, type, text) {
+    el.className = `message-box show ${type}`;
+    el.textContent = text;
+  }
+
+  // Enter key support
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const active = document.querySelector('.panel.active');
+      if (active && active.id === 'panel-login') doLogin();
+      if (active && active.id === 'panel-register') doRegister();
+    }
+    if (e.key === 'Escape') hideLogoutConfirm();
+  });
+</script>
+</body>
+</html>
